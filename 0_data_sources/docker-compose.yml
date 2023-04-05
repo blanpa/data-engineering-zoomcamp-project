@@ -1,0 +1,74 @@
+version: "3"
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    user: mosquitto
+    container_name: mqtt
+    restart: always
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    ports:
+      - "1885:1883"
+      - "9002:9001"
+    network_mode: host
+
+  greenville-packaging-line1:
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: Greenville
+      AREA: Packaging
+      LINE: 'Line 1'
+      MQTT_URL: mqtt://172.17.0.4
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: bridge
+
+
+  greenville-packaging-line2:
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: Greenville
+      AREA: Packaging
+      LINE: 'Line 2'
+      MQTT_URL: mqtt://172.17.0.4
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: bridge
+
+  
+  greenville-cnc-line1:
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: Greenville
+      AREA: CNC
+      LINE: 'Line 3'
+      MQTT_URL: mqtt://172.17.0.4
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: bridge
+
+  ioTSensorsMQTT-Sim1:
+    image: amineamaach/sensors-mqtt:v1.0.0
+    restart: always
+    container_name: iot-sensors-sim1
+    volumes:
+    - ./configs/iot-sensors-sim1.json:/configs/config.json
+    network_mode: bridge
+
+  ioTSensorsMQTT-Sim2:
+    image: amineamaach/sensors-mqtt:v1.0.0
+    restart: always
+    container_name: iot-sensors-sim2
+    volumes:
+    - ./configs/iot-sensors-sim2.json:/configs/config.json
+    network_mode: bridge
+
+# networks:
+#   data_sources:
+#     name: data_sources
