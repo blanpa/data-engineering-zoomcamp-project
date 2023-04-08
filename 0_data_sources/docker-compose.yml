@@ -1,6 +1,7 @@
-version: "3"
+version: "3.8"
 
 services:
+  # Node-red
   node-red:
     image: nodered/node-red:latest
     container_name: node-red
@@ -13,82 +14,131 @@ services:
     #   - node-red-net
     volumes:
       - node-red-data:/data
-    network_mode: bridge
+    networks:
+      - data_sources
 
+  # Mosquitto
   mosquitto:
-    image: eclipse-mosquitto:latest
+    image: eclipse-mosquitto:2
     user: mosquitto
-    container_name: mqtt
-    restart: always
     volumes:
-      - ./mosquitto/config:/mosquitto/config
-      - ./mosquitto/data:/mosquitto/data
-      - ./mosquitto/log:/mosquitto/log
+      - type: bind
+        source: ./config/
+        target: /mosquitto/config/
+      - type: bind
+        source: ./log/
+        target: /mosquitto/log/
+      - type: volume
+        source: data
+        target: /mosquitto/data/
     ports:
-      - "1886:1883"
-      - "9010:9001"
-    network_mode: bridge
+      - target: 1883
+        published: 1883
+        protocol: tcp
+        mode: host
+      - target: 9001
+        published: 9001
+        protocol: tcp
+        mode: host
+    networks:
+      - data_sources
+    #network_mode: host
 
-  greenville-packaging-line1:
+    # packml-simulator
+  berlin-packaging-line1:
     image: spruiktec/packml-simulator
     environment:
-      SITE: Greenville
+      SITE: Berlin
       AREA: Packaging
       LINE: 'Line 1'
-      MQTT_URL: mqtt://172.17.0.4
+      MQTT_URL: mqtt://localhost
       CLIENT_TYPE: mqtt
     mem_limit: 30MB
     restart: always
-    network_mode: bridge
+    # networks:
+    #   - data_sources
+    network_mode: host
 
-
-  greenville-packaging-line2:
+  berlin-packaging-line2:
     image: spruiktec/packml-simulator
     environment:
-      SITE: Greenville
+      SITE: Berlin
       AREA: Packaging
       LINE: 'Line 2'
-      MQTT_URL: mqtt://172.17.0.4
+      MQTT_URL: mqtt://localhost
       CLIENT_TYPE: mqtt
     mem_limit: 30MB
     restart: always
-    network_mode: bridge
+    # networks:
+    #   - data_sources
+    network_mode: host
 
-  
-  greenville-cnc-line1:
+  berlin-cnc-line1:
     image: spruiktec/packml-simulator
     environment:
-      SITE: Greenville
+      SITE: Berlin
       AREA: CNC
-      LINE: 'Line 3'
-      MQTT_URL: mqtt://172.17.0.4
+      LINE: 'Line 1'
+      MQTT_URL: mqtt://localhost
       CLIENT_TYPE: mqtt
     mem_limit: 30MB
     restart: always
-    network_mode: bridge
+    # networks:
+    #   - data_sources
+    network_mode: host
+  
+  berlin-cnc-line2:
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: Berlin
+      AREA: CNC
+      LINE: 'Line 2'
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    # networks:
+    #   - data_sources
+    network_mode: host
 
+  # IoTSensorsMQTT-SIM
   ioTSensorsMQTT-Sim1:
     image: amineamaach/sensors-mqtt:v1.0.0
     restart: always
     container_name: iot-sensors-sim1
     volumes:
-    - ./configs/iot-sensors-sim1.json:/configs/config.json
-    network_mode: bridge
+      - ./configs/iot-sensors-sim1.json:/configs/config.json
+    # networks:
+    #   - data_sources
+    network_mode: host
 
   ioTSensorsMQTT-Sim2:
     image: amineamaach/sensors-mqtt:v1.0.0
     restart: always
     container_name: iot-sensors-sim2
     volumes:
-    - ./configs/iot-sensors-sim2.json:/configs/config.json
-    network_mode: bridge
+      - ./configs/iot-sensors-sim2.json:/configs/config.json
+    # networks:
+    #   - data_sources
+    network_mode: host
 
+  ioTSensorsMQTT-Sim3:
+    image: amineamaach/sensors-mqtt:v1.0.0
+    restart: always
+    container_name: iot-sensors-sim3
+    volumes:
+      - ./configs/iot-sensors-sim2.json:/configs/config.json
+    # networks:
+    #   - data_sources
+    network_mode: host
 
 volumes:
   node-red-data:
+  mosquitto-data:
+  data:
+    name: "mqtt-broker-data"
 
-
-
-# networks:
-#   data_sources:
-#     name: data_sources
+networks:
+  data_sources:
+    name: data_sources
+    driver: bridge

@@ -16,3 +16,11 @@ https://github.com/amine-amaach/simulators/tree/main/ioTSensorsMQTT
 ## Node Red
 
 ## Python Files to start Data
+
+
+
+
+Setup enviorment
+
+    sudo docker-compose -p "data_sources" up -d 
+

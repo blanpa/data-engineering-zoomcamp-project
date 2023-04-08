@@ -5,10 +5,10 @@
         "SERVER_PWD": "",
         "SERVER_RETAIN": "true",
         "SERVER_QOS": 1,
-        "CLIENT_ID": "IoTSensorsMQTT-Simulator2",
+        "CLIENT_ID": "IoTSensorsMQTT-Simulator3",
         "KEEP_ALIVE": 300,
         "RETRY_DELAY": 10,
-        "ROOT_TOPIC": "IoTSensorsMQTT/Simulator2",
+        "ROOT_TOPIC": "IoTSensorsMQTT/Simulator3",
         "SET_DELAY_BETWEEN_MESSAGES": 5,
         "RANDOMIZE_DELAY_BETWEEN_MESSAGES": "true"
     },

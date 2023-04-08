@@ -1,6 +1,6 @@
 {
     "MQTT_BROKER": {
-        "SERVER_URL": "mqtt://172.17.0.4:1883",
+        "SERVER_URL": "mqtt://localhost:1883",
         "SERVER_USER": "",
         "SERVER_PWD": "",
         "SERVER_RETAIN": "true",
