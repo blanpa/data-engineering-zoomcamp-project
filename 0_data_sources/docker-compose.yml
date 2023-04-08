@@ -1,6 +1,20 @@
 version: "3"
 
 services:
+  node-red:
+    image: nodered/node-red:latest
+    container_name: node-red
+    restart: always
+    environment:
+      - TZ=Europe/Amsterdam
+    ports:
+      - "1880:1880"
+    # networks:
+    #   - node-red-net
+    volumes:
+      - node-red-data:/data
+    network_mode: bridge
+
   mosquitto:
     image: eclipse-mosquitto:latest
     user: mosquitto
@@ -11,9 +25,9 @@ services:
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
     ports:
-      - "1885:1883"
-      - "9002:9001"
-    network_mode: host
+      - "1886:1883"
+      - "9010:9001"
+    network_mode: bridge
 
   greenville-packaging-line1:
     image: spruiktec/packml-simulator
@@ -68,6 +82,12 @@ services:
     volumes:
     - ./configs/iot-sensors-sim2.json:/configs/config.json
     network_mode: bridge
+
+
+volumes:
+  node-red-data:
+
+
 
 # networks:
 #   data_sources:
