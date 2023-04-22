@@ -75,48 +75,26 @@ services:
       - ./config/iot-sensorsMQTT/iot-sensors-sim3.json:/configs/config.json
     network_mode: host
 
+  ioTSensorsMQTT-Sim4:
+    image: amineamaach/sensors-mqtt:v1.0.0
+    restart: always
+    container_name: iot-sensors-sim4
+    volumes:
+      - ./config/iot-sensorsMQTT/iot-sensors-sim4.json:/configs/config.json
+    network_mode: host
+
+  ioTSensorsMQTT-Sim5:
+    image: amineamaach/sensors-mqtt:v1.0.0
+    restart: always
+    container_name: iot-sensors-sim5
+    volumes:
+      - ./config/iot-sensorsMQTT/iot-sensors-sim5.json:/configs/config.json
+    network_mode: host
+
   ##########################################################
   ################ packml-simulator ########################
   ##########################################################
-  berlin-packaging-line1:
-    container_name: berlin-packaging-line1
-    image: spruiktec/packml-simulator
-    environment:
-      SITE: "berlin"
-      AREA: "packaging"
-      LINE: "line_1"
-      MQTT_URL: mqtt://localhost
-      CLIENT_TYPE: mqtt
-    mem_limit: 30MB
-    restart: always
-    network_mode: host
-
-  berlin-packaging-line2:
-    container_name: berlin-packaging-line2
-    image: spruiktec/packml-simulator
-    environment:
-      SITE: "berlin"
-      AREA: "packaging"
-      LINE: "line_2"
-      MQTT_URL: mqtt://localhost
-      CLIENT_TYPE: mqtt
-    mem_limit: 30MB
-    restart: always
-    network_mode: host
-
-  berlin-packaging-line3:
-    container_name: berlin-packaging-line3
-    image: spruiktec/packml-simulator
-    environment:
-      SITE: "berlin"
-      AREA: "packaging"
-      LINE: "line_3"
-      MQTT_URL: mqtt://localhost
-      CLIENT_TYPE: mqtt
-    mem_limit: 30MB
-    restart: always
-    network_mode: host
-
+  #cnc
   berlin-cnc-line1:
     container_name: berlin-cnc-line1
     image: spruiktec/packml-simulator
@@ -156,37 +134,191 @@ services:
     restart: always
     network_mode: host
 
+  # electronic_assembly
+  berlin-electronic_assembly-line1:
+    container_name: berlin-electronic_assembly-line1
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: "berlin"
+      AREA: "electronic_assembly"
+      LINE: "line_1"
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: host
+
+  berlin-electronic_assembly-line2:
+    container_name: berlin-electronic_assembly-line2
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: "berlin"
+      AREA: "electronic_assembly"
+      LINE: "line_2"
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: host
+
+  berlin-electronic_assembly-line3:
+    container_name: berlin-electronic_assembly-line3
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: "berlin"
+      AREA: "electronic_assembly"
+      LINE: "line_3"
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: host
+
+  #mechanical_assembly
+  berlin-mechanical_assembly-line1:
+    container_name: berlin-mechanical_assembly-line1
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: "berlin"
+      AREA: "mechanical_assembly"
+      LINE: "line_1"
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: host
+
+  berlin-mechanical_assembly-line2:
+    container_name: berlin-mechanical_assembly-line2
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: "berlin"
+      AREA: "mechanical_assembly"
+      LINE: "line_2"
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: host
+
+  berlin-mechanical_assembly-line3:
+    container_name: berlin-mechanical_assembly-line3
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: "berlin"
+      AREA: "mechanical_assembly"
+      LINE: "line_3"
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: host
+
+  #packaging
+  berlin-packaging-line1:
+    container_name: berlin-packaging-line1
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: "berlin"
+      AREA: "packaging"
+      LINE: "line_1"
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: host
+
+  berlin-packaging-line2:
+    container_name: berlin-packaging-line2
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: "berlin"
+      AREA: "packaging"
+      LINE: "line_2"
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: host
+
+  berlin-packaging-line3:
+    container_name: berlin-packaging-line3
+    image: spruiktec/packml-simulator
+    environment:
+      SITE: "berlin"
+      AREA: "packaging"
+      LINE: "line_3"
+      MQTT_URL: mqtt://localhost
+      CLIENT_TYPE: mqtt
+    mem_limit: 30MB
+    restart: always
+    network_mode: host
+
   ###############################################################
   ################# Power Generators Simulators #################
   ###############################################################
-  pgmqtt-berlin-cnc_facility:
+  pgmqtt-cnc:
     image: amineamaach/simulators-pgmqtt:v1.0.0
     restart: always
-    container_name: pgmqtt-berlin-cnc_facility
+    container_name: pgmqtt-cnc
     volumes:
-      - ./config/pgmqtt/pgmqtt-dallas.json:/config/config.json
+      - ./config/pgmqtt/pgmqtt-berlin1.json:/config/config.json
     environment:
       MQTT_SERVER_URL: mqtt://localhost:1883
       SITE: 'berlin'
-      AREA: 'cnc_facility'
-      MQTT_CLIENT_ID: 'pgmqtt-berlin'
+      AREA: 'powergenerator/cnc_pg'
+      MQTT_CLIENT_ID: 'cnc_pg'
       RANDOM_DELAY_BETWEEN_MESSAGES: 'true'
       DELAY_BETWEEN_MESSAGES_MIN: 3
       DELAY_BETWEEN_MESSAGES_MAX: 15
       GENERATORS_NUMBER: 4
     network_mode: host
 
-  pgmqtt-berlin-building_2_electronic_assembly:
+  pgmqtt-electronic_assembly:
     image: amineamaach/simulators-pgmqtt:v1.0.0
     restart: always
-    container_name: pgmqtt-berlin-building_2_electronic_assembly
+    container_name: pgmqtt-electronic_assembly
     volumes:
-      - ./config/pgmqtt/pgmqtt-deer-park.json:/config/config.json
+      - ./config/pgmqtt/pgmqtt-berlin2.json:/config/config.json
     environment:
       MQTT_SERVER_URL: mqtt://localhost:1883
       SITE: 'berlin'
-      AREA: 'building_2_electronic_assembly'
-      MQTT_CLIENT_ID: 'pgmqtt-berlin'
+      AREA: 'powergenerator/electronic_assembly_pg'
+      MQTT_CLIENT_ID: 'electronic_assembly_pg'
+      RANDOM_DELAY_BETWEEN_MESSAGES: 'true'
+      DELAY_BETWEEN_MESSAGES_MIN: 5
+      DELAY_BETWEEN_MESSAGES_MAX: 10
+      GENERATORS_NUMBER: 4
+    network_mode: host
+
+  pgmqtt-mechanical_assembly:
+    image: amineamaach/simulators-pgmqtt:v1.0.0
+    restart: always
+    container_name: pgmqtt-mechanical_assembly
+    volumes:
+      - ./config/pgmqtt/pgmqtt-berlin3.json:/config/config.json
+    environment:
+      MQTT_SERVER_URL: mqtt://localhost:1883
+      SITE: 'berlin'
+      AREA: 'powergenerator/mechanical_assembly_pg'
+      MQTT_CLIENT_ID: 'mechanical_assembly_pg'
+      RANDOM_DELAY_BETWEEN_MESSAGES: 'true'
+      DELAY_BETWEEN_MESSAGES_MIN: 5
+      DELAY_BETWEEN_MESSAGES_MAX: 10
+      GENERATORS_NUMBER: 4
+    network_mode: host
+
+  pgmqtt-packaging_power:
+    image: amineamaach/simulators-pgmqtt:v1.0.0
+    restart: always
+    container_name: pgmqtt-mechanical_assembly
+    volumes:
+      - ./config/pgmqtt/pgmqtt-berlin4.json:/config/config.json
+    environment:
+      MQTT_SERVER_URL: mqtt://localhost:1883
+      SITE: 'berlin'
+      AREA: 'powergenerator/packaging_power_pg'
+      MQTT_CLIENT_ID: 'packaging_power_pg'
       RANDOM_DELAY_BETWEEN_MESSAGES: 'true'
       DELAY_BETWEEN_MESSAGES_MIN: 5
       DELAY_BETWEEN_MESSAGES_MAX: 10

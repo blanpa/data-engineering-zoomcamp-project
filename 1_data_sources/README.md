@@ -54,3 +54,32 @@ https://github.com/DamascenoRafael/mqtt-simulator
 
     sudo docker-compose -p "data_sources" up -d 
 
+
+berlin
+    cnc
+        line_1
+        line_2
+        line_3
+        cnc_amb
+    electronic_assembly
+        line_1
+        line_2
+        line_3
+        electronic_assembly_amb
+    mechanical_assembly
+        line_1
+        line_2
+        line_3
+        mechanical_assembly_amb
+    packaging
+        line_1
+        line_2
+        line_3
+        packaging_amb
+    powergenerator
+        cnc_pg
+        electronic_assembly_pg
+        mechanical_assembly_pg
+        packaging_power_pg
+        powergenerator_amb
+        

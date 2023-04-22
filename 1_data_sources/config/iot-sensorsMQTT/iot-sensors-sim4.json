@@ -5,17 +5,17 @@
         "SERVER_PWD": "",
         "SERVER_RETAIN": "true",
         "SERVER_QOS": 1,
-        "CLIENT_ID": "cnc_amb",
+        "CLIENT_ID": "packaging_amb",
         "KEEP_ALIVE": 300,
         "RETRY_DELAY": 10,
-        "ROOT_TOPIC": "berlin/cnc/cnc_amb",
+        "ROOT_TOPIC": "berlin/packaging/packaging_amb",
         "SET_DELAY_BETWEEN_MESSAGES": 5,
         "RANDOMIZE_DELAY_BETWEEN_MESSAGES": "true"
     },
     "SIMULATORS": [
         {
             "Name": "Temperature",
-            "Mean": 27.0,
+            "Mean": 29.0,
             "StandardDeviation": 3.5
         },
         {
