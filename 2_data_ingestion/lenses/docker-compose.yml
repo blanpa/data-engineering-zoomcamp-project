@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  lenses:
+    image: lensesio/box
+    environment:
+      EULA: "https://licenses.lenses.io/download/lensesdl?id=276b0b5f-d641-11ed-8f1e-42010af01003"
+      LENSES_SECURITY_USER: admin
+      LENSES_SECURITY_PASSWORD: admin
+    ports:
+      - 3030:3030
+      - 9991:9991
+      - 9102:9102
