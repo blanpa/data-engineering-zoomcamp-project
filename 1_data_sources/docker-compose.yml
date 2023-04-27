@@ -311,7 +311,7 @@ services:
   pgmqtt-packaging_power:
     image: amineamaach/simulators-pgmqtt:v1.0.0
     restart: always
-    container_name: pgmqtt-mechanical_assembly
+    container_name: pgmqtt-packaging
     volumes:
       - ./config/pgmqtt/pgmqtt-berlin4.json:/config/config.json
     environment:
